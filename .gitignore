@@ -11,6 +11,8 @@ Saved/
 *.xcworkspace
 *.VC.db
 *.VC.VC.opendb
+*.opensdf
+*.sdf
 
 *.log
 *.tmp
@@ -23,3 +25,54 @@ Saved/
 # Visual Studio cache
 .vs/
 *.ipch
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+*.ipa
+
+# Precompiled Assets
+SourceArt/**/*.png
+SourceArt/**/*.tga
+
+# Binary Files
+Plugins/**/Binaries/*
+
+# Whitelist PakBlacklist-<BuildConfiguration>.txt files
+!Build/*/
+Build/*/**
+!Build/*/PakBlacklist*.txt
+
+# Don't ignore icon files in Build
+!Build/**/*.ico
+
+# Built data for maps
+*_BuiltData.uasset
+
+# Compiled source files for the engine to use
+Plugins/**/Intermediate/*
