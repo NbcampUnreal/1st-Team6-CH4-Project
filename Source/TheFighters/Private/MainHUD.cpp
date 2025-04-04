@@ -8,26 +8,58 @@ void UMainHUD::NativeConstruct()
 {
     Super::NativeConstruct();
 
-    // 초기화 시 각 플레이어 UI 생성 및 추가
-    for (int32 i = 0; i < 4; ++i) // 4명의 플레이어 기준
+    // OtherPlayers 배열 초기화
+    if (Player2) OtherPlayers.Add(Player2);
+    if (Player3) OtherPlayers.Add(Player3);
+    if (Player4) OtherPlayers.Add(Player4);
+
+    // Player와 Player1은 같은 데이터를 공유하도록 설정
+    if (Player && Player1)
     {
-        if (UClass* PlayerUIClass = LoadClass<UUserWidget>(nullptr, TEXT("/Game/UI/WBP_PlayerUI.WBP_PlayerUI_C")))
+        // 초기화 시 동일한 데이터를 표시
+ /*       Player->UpdateHealth(Player1->GetCurrentHealth());
+        Player->UpdateSuperMeter(Player1->GetCurrentSuperMeter());
+        Player->UpdateLives(Player1->GetRemainingLives());*/
+    }
+}
+
+void UMainHUD::UpdatePlayerUI(int32 PlayerIndex, float Health, float SuperMeter, int32 Lives)
+{
+    if (PlayerIndex == 0) // Player1과 Player가 같은 데이터를 공유
+    {
+        if (Player)
         {
-            UPlayerUI* NewPlayerUI = CreateWidget<UPlayerUI>(GetWorld(), PlayerUIClass);
-            if (NewPlayerUI && PlayerUIContainer)
-            {
-                PlayerUIs.Add(NewPlayerUI);
-                //PlayerUIContainer->AddChildToVerticalBox(NewPlayerUI); //버티컬에서 캔퍼스로 바꿨음 
-            }
+            Player->UpdateHealth(Health);
+            Player->UpdateSuperMeter(SuperMeter);
+            Player->UpdateLives(Lives);
+        }
+
+        if (Player1)
+        {
+            Player1->UpdateHealth(Health);
+            Player1->UpdateSuperMeter(SuperMeter);
+            Player1->UpdateLives(Lives);
+        }
+    }
+    else if (OtherPlayers.IsValidIndex(PlayerIndex - 1)) // 나머지 플레이어들 업데이트
+    {
+        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex - 1];
+        if (TargetPlayerUI)
+        {
+            TargetPlayerUI->UpdateHealth(Health);
+            TargetPlayerUI->UpdateSuperMeter(SuperMeter);
+            TargetPlayerUI->UpdateLives(Lives);
         }
     }
 }
 
-void UMainHUD::UpdatePlayerUI(int32 PlayerIndex, float Health, float SuperMeter)
+void UMainHUD::UpdateTimer(float RemainingTime)
 {
-    if (PlayerUIs.IsValidIndex(PlayerIndex))
+    if (TimerWidget)
     {
-        PlayerUIs[PlayerIndex]->UpdateHealth(Health);
-        PlayerUIs[PlayerIndex]->UpdateSuperMeter(SuperMeter);
+        // Timer 위젯에 남은 시간을 표시하는 로직 추가
+        // 예: TimerWidget의 텍스트를 업데이트하거나 ProgressBar를 조정
+        // TimerWidget->SetText(FText::AsNumber(RemainingTime));
     }
 }
+
