@@ -51,6 +51,16 @@ protected:
     class UUserWidget* LifeCounter3;
 
 
+public:
+    // 캐릭터에서 받아온 Health 값 리턴
+    float GetCurrentHealth() const;
+
+    // 캐릭터에서 받아온 슈퍼미터값 리턴
+    float GetCurrentSuperMeter() const;
+
+    // 캐릭터에서 받아온 목숨개수 리턴
+    int32 GetRemainingLives() const; 
+
 private:
     // 목숨 표시 위젯 배열
    /* UPROPERTY(meta = (BindWidget))*/

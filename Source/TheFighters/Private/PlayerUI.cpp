@@ -2,24 +2,16 @@
 
 
 #include "PlayerUI.h"
+#include "HealthBar.h"
+#include "LifeCounter.h"
+#include "SuperMeter.h"
+#include "Timer.h"
 #include "Components/ProgressBar.h"
 
-void UPlayerUI::UpdateLives(int32 RemainingLives)
-{
-    for (int32 i = 0; i < LifeCounters.Num(); i++)
-    {
-        if (LifeCounters[i])
-        {
-            // 남은 목숨보다 작은 인덱스는 Visible, 나머지는 Hidden
-            LifeCounters[i]->SetVisibility(i < RemainingLives ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
-        }
-    }
-
-}
 
 void UPlayerUI::NativeConstruct()
 {
-	Super::NativeConstruct();
+    Super::NativeConstruct();
 
     // Bind된 개별 위젯을 배열에 추가
     if (LifeCounter1) LifeCounters.Add(LifeCounter1);
@@ -28,17 +20,63 @@ void UPlayerUI::NativeConstruct()
 }
 
 
+
+float UPlayerUI::GetCurrentHealth() const
+{
+    // 플레이어에서 값 가져오기 todo:
+    return 0.0f;
+}
+
+float UPlayerUI::GetCurrentSuperMeter() const
+{
+    // 플레이어에서 값 가져오기 todo:
+    return 0.0f;
+}
+
+int32 UPlayerUI::GetRemainingLives() const
+{
+    // 플레이어에서 값 가져오기 todo:
+    return int32();
+}
+
+
+
+void UPlayerUI::UpdateLives(int32 RemainingLives)
+{
+    for (int32 i = 0; i < LifeCounters.Num(); i++)
+    {
+        if (LifeCounters[i])
+        {
+
+            // 남은 목숨보다 작은 인덱스는 Visible, 나머지는 Hidden
+            LifeCounters[i]->SetVisibility(i < RemainingLives ? ESlateVisibility::Visible : ESlateVisibility::Hidden);
+
+            // ; 각각의 Life 마다 적용할 것 있다면? 색깔 등등
+            ULifeCounter* LifeCounter = Cast<ULifeCounter>(LifeCounters[i]);
+            LifeCounter->UpdateLives(RemainingLives);
+        }
+    }
+
+}
+
+
 void UPlayerUI::UpdateHealth(float CurrentHealth)
 {
     if (HealthBar)
     {
-
-        //HealthBar->SetPercent(CurrentHealth); // 체력을 0~1 사이 값으로 설정
+        // HealthBar코드로 
+        UHealthBar* PlayerHealthBar = Cast<UHealthBar>(HealthBar);
+        PlayerHealthBar->UpdateHealth(CurrentHealth);
     }
 }
 
 void UPlayerUI::UpdateSuperMeter(float CurrentSuperMeter)
 {
-    //SuperMeterBar->SetPercent(CurrentSuperMeter); // 슈퍼미터를 0~1 사이 값으로 설정
+    if (SuperMeterBar)
+    {
+        // SuperMeterBar 코드로 
+        USuperMeter* PlayerSuperMeterBar = Cast<USuperMeter>(SuperMeterBar);
+        PlayerSuperMeterBar->UpdateSuperMeter(CurrentSuperMeter);
+    }
 }
 

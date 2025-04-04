@@ -17,9 +17,10 @@ void UMainHUD::NativeConstruct()
     if (Player && Player1)
     {
         // 초기화 시 동일한 데이터를 표시
- /*       Player->UpdateHealth(Player1->GetCurrentHealth());
+
+        Player->UpdateHealth(Player1->GetCurrentHealth());
         Player->UpdateSuperMeter(Player1->GetCurrentSuperMeter());
-        Player->UpdateLives(Player1->GetRemainingLives());*/
+        Player->UpdateLives(Player1->GetRemainingLives());
     }
 }
 
