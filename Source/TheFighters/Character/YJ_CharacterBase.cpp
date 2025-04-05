@@ -1,6 +1,3 @@
-
-
-
 #include "Character/YJ_CharacterBase.h"
 
 // Sets default values
@@ -18,11 +15,17 @@ void AYJ_CharacterBase::BeginPlay()
 	
 }
 
+void AYJ_CharacterBase::PostNetInit()
+{
+	Super::PostNetInit();
+
+	OnPostNetInitDelegate.Broadcast();
+}
+
 // Called every frame
 void AYJ_CharacterBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
