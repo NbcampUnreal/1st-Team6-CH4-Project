@@ -9,6 +9,7 @@ void UMainHUD::NativeConstruct()
     Super::NativeConstruct();
 
     // OtherPlayers 배열 초기화
+    if (Player1) OtherPlayers.Add(Player1);
     if (Player2) OtherPlayers.Add(Player2);
     if (Player3) OtherPlayers.Add(Player3);
     if (Player4) OtherPlayers.Add(Player4);
@@ -26,7 +27,7 @@ void UMainHUD::NativeConstruct()
 
 void UMainHUD::UpdatePlayerUI(int32 PlayerIndex, float Health, float SuperMeter, int32 Lives)
 {
-    if (PlayerIndex == 0) // Player1과 Player가 같은 데이터를 공유
+    if (PlayerIndex == OwnerPlayerIndex) // Player1과 OwnerPlayer가 같은 데이터를 공유
     {
         if (Player)
         {
@@ -35,16 +36,17 @@ void UMainHUD::UpdatePlayerUI(int32 PlayerIndex, float Health, float SuperMeter,
             Player->UpdateLives(Lives);
         }
 
-        if (Player1)
+        /*if (Player1)
         {
             Player1->UpdateHealth(Health);
             Player1->UpdateSuperMeter(SuperMeter);
             Player1->UpdateLives(Lives);
-        }
+        }*/
     }
-    else if (OtherPlayers.IsValidIndex(PlayerIndex - 1)) // 나머지 플레이어들 업데이트
+
+    if (OtherPlayers.IsValidIndex(PlayerIndex)) // 나머지 플레이어들 업데이트
     {
-        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex - 1];
+        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex];
         if (TargetPlayerUI)
         {
             TargetPlayerUI->UpdateHealth(Health);
@@ -66,17 +68,17 @@ void UMainHUD::UpdateTimer(float RemainingTime)
 
 void UMainHUD::UpdatePlayerHealth(int32 PlayerIndex, float Health)
 {
-    if (PlayerIndex == 0) // Player와 Player1이 같은 데이터를 공유
+    if (PlayerIndex == OwnerPlayerIndex) // Player와 OwnerPlayer이 같은 데이터를 공유
     {
         if (Player)
             Player->UpdateHealth(Health);
-
-        if (Player1)
-            Player1->UpdateHealth(Health);
+        /*if (Player1)
+            Player1->UpdateHealth(Health);*/
     }
-    else if (OtherPlayers.IsValidIndex(PlayerIndex - 1)) // 나머지 플레이어들 업데이트
+
+    if (OtherPlayers.IsValidIndex(PlayerIndex)) // 나머지 플레이어들 업데이트
     {
-        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex - 1];
+        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex];
         if (TargetPlayerUI)
             TargetPlayerUI->UpdateHealth(Health);
     }
@@ -84,17 +86,18 @@ void UMainHUD::UpdatePlayerHealth(int32 PlayerIndex, float Health)
 
 void UMainHUD::UpdatePlayerSuperMeter(int32 PlayerIndex, float SuperMeter)
 {
-    if (PlayerIndex == 0) // Player와 Player1이 같은 데이터를 공유
+    if (PlayerIndex == OwnerPlayerIndex) // Player와 OwnerPlayer이 같은 데이터를 공유
     {
         if (Player)
             Player->UpdateSuperMeter(SuperMeter);
 
-        if (Player1)
-            Player1->UpdateSuperMeter(SuperMeter);
+        /*if (Player1)
+            Player1->UpdateSuperMeter(SuperMeter);*/
     }
-    else if (OtherPlayers.IsValidIndex(PlayerIndex - 1)) // 나머지 플레이어들 업데이트
+
+    if (OtherPlayers.IsValidIndex(PlayerIndex)) // 나머지 플레이어들 업데이트
     {
-        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex - 1];
+        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex];
         if (TargetPlayerUI)
             TargetPlayerUI->UpdateSuperMeter(SuperMeter);
     }
@@ -102,20 +105,30 @@ void UMainHUD::UpdatePlayerSuperMeter(int32 PlayerIndex, float SuperMeter)
 
 void UMainHUD::UpdatePlayerLives(int32 PlayerIndex, int32 Lives)
 {
-
-    if (PlayerIndex == 0) // Player와 Player1이 같은 데이터를 공유
+    if (PlayerIndex == OwnerPlayerIndex) // Player와 OwnerPlayer이 같은 데이터를 공유
     {
         if (Player)
             Player->UpdateLives(Lives);
 
-        if (Player1)
-            Player1->UpdateLives(Lives);
+        /*if (Player1)
+            Player1->UpdateLives(Lives);*/
     }
-    else if (OtherPlayers.IsValidIndex(PlayerIndex - 1)) // 나머지 플레이어들 업데이트
+
+    if (OtherPlayers.IsValidIndex(PlayerIndex)) // 나머지 플레이어들 업데이트
     {
-        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex - 1];
+        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex];
         if (TargetPlayerUI)
             TargetPlayerUI->UpdateLives(Lives);
     }
+}
+
+void UMainHUD::SetOwnerPlayerIndex(int32 NewPlayerIndex)
+{
+    OwnerPlayerIndex = NewPlayerIndex;
+}
+
+int32 UMainHUD::GetOnwerPlayerIndex() const
+{
+    return OwnerPlayerIndex;
 }
 
