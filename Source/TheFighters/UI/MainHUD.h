@@ -34,7 +34,13 @@ public:
     UFUNCTION(BlueprintCallable, Category = "UI")
     void UpdatePlayerLives(int32 PlayerIndex, int32 Lives);
 
+public:
 
+    UFUNCTION(BlueprintCallable)
+    void SetOwnerPlayerIndex(int32 NewPlayerIndex);
+
+    UFUNCTION(BlueprintCallable, BlueprintPure)
+    int32 GetOnwerPlayerIndex() const;
 
 protected:
     // Timer 위젯 바인딩
@@ -61,6 +67,8 @@ protected:
 private:
     // 나머지 플레이어 UI를 배열로 관리
     TArray<class UPlayerUI*> OtherPlayers;
+
+    int32 OwnerPlayerIndex = 0;
 };
 
 
