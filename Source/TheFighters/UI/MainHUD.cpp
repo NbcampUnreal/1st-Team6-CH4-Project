@@ -64,3 +64,58 @@ void UMainHUD::UpdateTimer(float RemainingTime)
     }
 }
 
+void UMainHUD::UpdatePlayerHealth(int32 PlayerIndex, float Health)
+{
+    if (PlayerIndex == 0) // Player와 Player1이 같은 데이터를 공유
+    {
+        if (Player)
+            Player->UpdateHealth(Health);
+
+        if (Player1)
+            Player1->UpdateHealth(Health);
+    }
+    else if (OtherPlayers.IsValidIndex(PlayerIndex - 1)) // 나머지 플레이어들 업데이트
+    {
+        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex - 1];
+        if (TargetPlayerUI)
+            TargetPlayerUI->UpdateHealth(Health);
+    }
+}
+
+void UMainHUD::UpdatePlayerSuperMeter(int32 PlayerIndex, float SuperMeter)
+{
+    if (PlayerIndex == 0) // Player와 Player1이 같은 데이터를 공유
+    {
+        if (Player)
+            Player->UpdateSuperMeter(SuperMeter);
+
+        if (Player1)
+            Player1->UpdateSuperMeter(SuperMeter);
+    }
+    else if (OtherPlayers.IsValidIndex(PlayerIndex - 1)) // 나머지 플레이어들 업데이트
+    {
+        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex - 1];
+        if (TargetPlayerUI)
+            TargetPlayerUI->UpdateSuperMeter(SuperMeter);
+    }
+}
+
+void UMainHUD::UpdatePlayerLives(int32 PlayerIndex, int32 Lives)
+{
+
+    if (PlayerIndex == 0) // Player와 Player1이 같은 데이터를 공유
+    {
+        if (Player)
+            Player->UpdateLives(Lives);
+
+        if (Player1)
+            Player1->UpdateLives(Lives);
+    }
+    else if (OtherPlayers.IsValidIndex(PlayerIndex - 1)) // 나머지 플레이어들 업데이트
+    {
+        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex - 1];
+        if (TargetPlayerUI)
+            TargetPlayerUI->UpdateLives(Lives);
+    }
+}
+

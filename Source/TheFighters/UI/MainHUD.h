@@ -17,11 +17,24 @@ class THEFIGHTERS_API UMainHUD : public UUserWidget
 
 public:
     virtual void NativeConstruct() override;
+    
 
-    // 특정 플레이어의 UI 업데이트 함수
+    // 특정 플레이어의 전체UI 업데이트 함수
+    UFUNCTION(BlueprintCallable, Category = "UI")
     void UpdatePlayerUI(int32 PlayerIndex, float Health, float SuperMeter, int32 Lives);
     // 타이머 업데이트 함수
+    UFUNCTION(BlueprintCallable, Category = "UI")
     void UpdateTimer(float RemainingTime);
+
+    // 개별 데이터 업데이트 함수
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void UpdatePlayerHealth(int32 PlayerIndex, float Health);
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void UpdatePlayerSuperMeter(int32 PlayerIndex, float SuperMeter);
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void UpdatePlayerLives(int32 PlayerIndex, int32 Lives);
+
+
 
 protected:
     // Timer 위젯 바인딩
@@ -49,3 +62,5 @@ private:
     // 나머지 플레이어 UI를 배열로 관리
     TArray<class UPlayerUI*> OtherPlayers;
 };
+
+
