@@ -25,6 +25,38 @@ void UMainHUD::NativeConstruct()
     }
 }
 
+
+void UMainHUD::SetPlayerUIVisibility(int32 PlayerIndex, bool bIsVisible)
+{
+    ESlateVisibility VisibilityState = bIsVisible ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
+
+    if (PlayerIndex == 0) // Player와 Player1은 같은 데이터를 공유
+    {
+        // 왼쪽 위 UI는 항상켜지게?? ;
+
+      /*  if (Player)
+            Player->SetVisibility(VisibilityState);*/
+
+        if (Player1)
+            Player1->SetVisibility(VisibilityState);
+    }
+    else if (OtherPlayers.IsValidIndex(PlayerIndex - 1)) // 나머지 플레이어들 업데이트
+    {
+        UPlayerUI* TargetPlayerUI = OtherPlayers[PlayerIndex - 1];
+        if (TargetPlayerUI)
+            TargetPlayerUI->SetVisibility(VisibilityState);
+    }
+}
+
+void UMainHUD::SetTimerVisibility(bool bIsVisible)
+{
+    ESlateVisibility VisibilityState = bIsVisible ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
+
+    if (TimerWidget)
+        TimerWidget->SetVisibility(VisibilityState);
+
+}
+
 void UMainHUD::UpdatePlayerUI(int32 PlayerIndex, float Health, float SuperMeter, int32 Lives)
 {
     if (PlayerIndex == OwnerPlayerIndex) // Player1과 OwnerPlayer가 같은 데이터를 공유
@@ -65,6 +97,7 @@ void UMainHUD::UpdateTimer(float RemainingTime)
         // TimerWidget->SetText(FText::AsNumber(RemainingTime));
     }
 }
+
 
 void UMainHUD::UpdatePlayerHealth(int32 PlayerIndex, float Health)
 {
