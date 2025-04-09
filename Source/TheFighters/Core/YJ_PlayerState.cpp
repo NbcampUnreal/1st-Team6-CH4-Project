@@ -1,10 +1,18 @@
 #include "Core/YJ_PlayerState.h"
 
+#include "TheFighters.h"
+
+
 #include "Net/UnrealNetwork.h"
 
 AYJ_PlayerState::AYJ_PlayerState()
 {
+	
+}
 
+void AYJ_PlayerState::BeginPlay()
+{
+	Super::BeginPlay();
 }
 
 void AYJ_PlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -14,6 +22,19 @@ void AYJ_PlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 	/*DOREPLIFETIME(AYJ_PlayerState, TotalReceivedDamage);
 	DOREPLIFETIME(AYJ_PlayerState, AppliedDamage);*/
 	//DOREPLIFETIME(AYJ_PlayerState, GameResultData);
+}
+
+void AYJ_PlayerState::CopyProperties(APlayerState* PlayerState)
+{
+	Super::CopyProperties(PlayerState);
+
+
+	OnCopyPropertiesDelegate.Broadcast(PlayerState);
+}
+
+const FString AYJ_PlayerState::GetId() const
+{
+	return GetUniqueId()->ToString();
 }
 
 //void AYJ_PlayerState::AddToTotalReceivedDamage(int32 Amount)

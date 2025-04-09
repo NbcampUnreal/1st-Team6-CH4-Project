@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -13,5 +11,12 @@ UCLASS()
 class THEFIGHTERS_API AYJ_GameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+
+public:
+
+
+	UFUNCTION(Exec)
+	void TestCPUMatch();
 	
 };
