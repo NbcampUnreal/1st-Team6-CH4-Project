@@ -14,3 +14,17 @@ void AYJ_GameMode::TestCPUMatch()
 
 	ProcessEvent(CpuMatchFunction, nullptr);
 }
+
+void AYJ_GameMode::SwitchTeamMode()
+{
+	FName FunctionName = FName(TEXT("SwitchTeamModeEvent"));
+	UFunction* SwitchTeamModeFunction = FindFunction(FunctionName);
+
+	if (SwitchTeamModeFunction == nullptr)
+	{
+		YJ_LOG(Error, TEXT("SwitchTeamModeFunction == nullptr"));
+		return;
+	}
+
+	ProcessEvent(SwitchTeamModeFunction, nullptr);
+}

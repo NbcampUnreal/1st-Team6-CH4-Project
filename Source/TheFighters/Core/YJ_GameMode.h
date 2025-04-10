@@ -18,5 +18,7 @@ public:
 
 	UFUNCTION(Exec)
 	void TestCPUMatch();
-	
+
+	UFUNCTION(Exec)
+	void SwitchTeamMode();
 };
