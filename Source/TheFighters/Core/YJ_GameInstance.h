@@ -82,4 +82,6 @@ protected:
 	TArray<FGameResultData> GameResultDataList;
 
 	const int32 TotalPlayerCount = 4;
+
+	//TMap<
 };

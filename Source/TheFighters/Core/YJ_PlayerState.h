@@ -5,6 +5,7 @@
 
 #include "YJ_PlayerState.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCopyPropertiesDelegate, APlayerState*, OldPlayerState);
 /**
  * 
  */
@@ -20,10 +21,21 @@ public:
 
 protected:
 
+	virtual void BeginPlay() override;
+
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+	virtual void CopyProperties(APlayerState* PlayerState) override;
 
 public:
 
+	UPROPERTY(BlueprintAssignable, Category = "YJPlayerState")
+	FOnCopyPropertiesDelegate OnCopyPropertiesDelegate;
+
+public:
+
+	UFUNCTION(BlueprintCallable, Category = "YJPlayerState")
+	const FString GetId() const;
 	/*UFUNCTION(BlueprintCallable, Category = "YJPlayerState")
 	void AddToTotalReceivedDamage(int32 Amount);
 
