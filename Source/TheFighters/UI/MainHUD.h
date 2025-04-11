@@ -19,12 +19,23 @@ public:
     virtual void NativeConstruct() override;
     
 
+
+    // 개별 UI 끄는 함수
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void SetPlayerUIVisibility(int32 PlayerIndex, bool bIsVisible);
+
+    // 타이머 껐다 켰다 하는 함수
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void SetTimerVisibility(bool bIsVisible);
+
     // 특정 플레이어의 전체UI 업데이트 함수
     UFUNCTION(BlueprintCallable, Category = "UI")
     void UpdatePlayerUI(int32 PlayerIndex, float Health, float SuperMeter, int32 Lives);
     // 타이머 업데이트 함수
     UFUNCTION(BlueprintCallable, Category = "UI")
     void UpdateTimer(float RemainingTime);
+
+
 
     // 개별 데이터 업데이트 함수
     UFUNCTION(BlueprintCallable, Category = "UI")
@@ -33,6 +44,8 @@ public:
     void UpdatePlayerSuperMeter(int32 PlayerIndex, float SuperMeter);
     UFUNCTION(BlueprintCallable, Category = "UI")
     void UpdatePlayerLives(int32 PlayerIndex, int32 Lives);
+
+
 
 public:
 
