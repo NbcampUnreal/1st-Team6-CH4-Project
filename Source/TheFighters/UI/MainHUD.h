@@ -64,6 +64,9 @@ protected:
     UPROPERTY(meta = (BindWidget))
     class UPlayerUI* Player4;
 
+    UPROPERTY(meta = (BindWidget))
+    class UUserWidget* MiniMap;
+
 private:
     // 나머지 플레이어 UI를 배열로 관리
     TArray<class UPlayerUI*> OtherPlayers;
