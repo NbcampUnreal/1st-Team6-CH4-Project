@@ -8,6 +8,13 @@ AYJ_CharacterBase::AYJ_CharacterBase()
 
 }
 
+void AYJ_CharacterBase::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	PostInitComp();
+}
+
 // Called when the game starts or when spawned
 void AYJ_CharacterBase::BeginPlay()
 {

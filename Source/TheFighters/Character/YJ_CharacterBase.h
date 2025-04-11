@@ -17,7 +17,9 @@ public:
 	AYJ_CharacterBase();
 	
 protected:
-	// Called when the game starts or when spawned
+	
+	virtual void PostInitializeComponents() override;
+
 	virtual void BeginPlay() override;
 
 	virtual void PostNetInit() override;
@@ -32,5 +34,10 @@ protected:
 
 	UPROPERTY(BlueprintAssignable, Category = "YJCharacter")
 	FOnPostNetInitDelegate OnPostNetInitDelegate;
+
+protected:
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "YJCharacter")
+	void PostInitComp();
 
 };
