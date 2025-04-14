@@ -1,6 +1,13 @@
 #include "Core/YJ_GameMode.h"
 
 #include "TheFighters.h"
+
+void AYJ_GameMode::InitGameState()
+{
+	Super::InitGameState();
+
+	OnInitGameState();
+}
 void AYJ_GameMode::TestCPUMatch()
 {
 	FName FunctionName = FName(TEXT("StartCPUMatch"));
