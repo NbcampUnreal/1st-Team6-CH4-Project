@@ -23,6 +23,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "YJMapSelectButtonWidget")
 	void SetActiveHighlight(bool bShouldActivate);
 
+	UFUNCTION(BlueprintCallable, Category = "YJMapSelectButtonWidget")
+	void SetMapName(const FString& NewMapName);
+
 public:
 
 	UPROPERTY(BlueprintAssignable, Category = "YJMapSelectButtonWidget")

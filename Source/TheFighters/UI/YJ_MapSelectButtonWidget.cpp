@@ -18,6 +18,11 @@ void UYJ_MapSelectButtonWidget::SetActiveHighlight(bool bShouldActivate)
 	HighLight->SetVisibility(NewVisibility);
 }
 
+void UYJ_MapSelectButtonWidget::SetMapName(const FString& NewMapName)
+{
+	MapText->SetText(FText::FromString(NewMapName));
+}
+
 void UYJ_MapSelectButtonWidget::OnMapSelectButtonClicked()
 {
 	OnMapSelectButtonClickedDelegate.Broadcast(MapIndex);
