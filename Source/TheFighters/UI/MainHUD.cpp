@@ -38,6 +38,11 @@ void UMainHUD::SetPlayerUIVisibility(int32 PlayerIndex, bool bIsVisible)
     }
 }
 
+void UMainHUD::SetPlayerImageVisibility(int32 PlayerIndex, bool bIsVisible)
+{
+
+}
+
 void UMainHUD::SetTimerVisibility(bool bIsVisible)
 {
     ESlateVisibility VisibilityState = bIsVisible ? ESlateVisibility::Visible : ESlateVisibility::Hidden;

@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "PlayerUI.generated.h"
-
+#include "Components/Image.h"
 /**
  * 
  */
@@ -15,6 +15,11 @@ class THEFIGHTERS_API UPlayerUI : public UUserWidget
 	GENERATED_BODY()
 
 public:
+    // 현재 캐릭터의 초상화 설정하는 함수
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void SetPlayerPortrait(UTexture2D* PortraitTexture);
+    
+public:
     // 체력 업데이트 함수
     UFUNCTION(BlueprintCallable, Category = "UI")
     void UpdateHealth(float CurrentHealth);
@@ -23,8 +28,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "UI")
     void UpdateSuperMeter(float CurrentSuperMeter);
 
-
-public:
     // 목숨 업데이트 함수
     UFUNCTION(BlueprintCallable, Category = "UI")
     void UpdateLives(int32 RemainingLives);
@@ -32,6 +35,10 @@ public:
 
 protected:
     virtual void NativeConstruct() override;
+
+    // 현재 캐릭터의 초상화 or 플레이어번호 
+    UPROPERTY(meta = (BindWidget))
+    class UImage* PlayerPortraitImage;
 
     // 체력과 슈퍼미터 위젯 바인딩
     UPROPERTY(meta = (BindWidget))
