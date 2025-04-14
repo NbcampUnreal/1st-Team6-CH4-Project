@@ -16,10 +16,15 @@ class THEFIGHTERS_API AYJ_HUDBase : public AHUD
 	
 protected:
 
-	virtual void PostNetInit() override;
+	//virtual void PostNetInit() override;
 
 public:
 
-	UPROPERTY(BlueprintAssignable, Category = "YJHUDBase")
-	FOnHudPostNetInitDelegate OnHudPostNetInitDelegate;
+	/*UPROPERTY(BlueprintAssignable, Category = "YJHUDBase")
+	FOnHudPostNetInitDelegate OnHudPostNetInitDelegate;*/
+
+protected:
+
+	/*UFUNCTION(BlueprintImplementableEvent, Category = "YJHUDBase")
+	void OnPostNetInit();*/
 };

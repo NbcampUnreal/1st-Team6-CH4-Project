@@ -12,6 +12,14 @@ class THEFIGHTERS_API AYJ_GameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
+protected:
+
+	virtual void InitGameState() override;
+
+protected:
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "YJCharacter")
+	void OnInitGameState();
 
 public:
 
