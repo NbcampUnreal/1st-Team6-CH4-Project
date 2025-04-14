@@ -70,7 +70,7 @@ void AYJ_ThunderSound::PlayRandomThunder()
 
         float Duration = SelectedSound->GetDuration();
 
-        // 다음 재생 예약
+        // 다음 재생 예약 //
         GetWorld()->GetTimerManager().SetTimer(
             ThunderTimerHandle, this, &AYJ_ThunderSound::PlayRandomThunder, false);
     }
