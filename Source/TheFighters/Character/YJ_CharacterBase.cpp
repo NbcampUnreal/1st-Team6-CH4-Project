@@ -27,6 +27,7 @@ void AYJ_CharacterBase::PostNetInit()
 	Super::PostNetInit();
 
 	OnPostNetInitDelegate.Broadcast();
+	OnPostNetInit();
 }
 
 // Called every frame
