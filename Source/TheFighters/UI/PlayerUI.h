@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "PlayerUI.generated.h"
 #include "Components/Image.h"
+#include "PlayerUI.generated.h"
 /**
  * 
  */
