@@ -21,8 +21,6 @@ void UYJ_CharacterSelectButtonWidget::NativeConstruct()
 
 void UYJ_CharacterSelectButtonWidget::SetActivePlayerBorder(int32 PlayerIndex, bool bShouldActivate)
 {
-	UE_LOG(LogTemp, Error, TEXT("Player Index : %d, Visible : %d"), PlayerIndex, bShouldActivate);
-
 	ESlateVisibility NewVisibility = (bShouldActivate) ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Hidden;
 	PlayerBorders[PlayerIndex]->SetVisibility(NewVisibility);
 }
