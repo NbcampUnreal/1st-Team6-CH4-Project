@@ -60,6 +60,17 @@ void UPlayerUI::UpdateLives(int32 RemainingLives)
 }
 
 
+void UPlayerUI::SetPlayerPortrait(UTexture2D* PortraitTexture)
+{
+    if (PlayerPortraitImage && PortraitTexture)
+    {
+        FSlateBrush Brush;
+        Brush.SetResourceObject(PortraitTexture);
+        Brush.ImageSize = FVector2D(100.f, 100.f); // 원하는 사이즈
+        PlayerPortraitImage->SetBrush(Brush);
+    }
+}
+
 void UPlayerUI::UpdateHealth(float CurrentHealth)
 {
     if (HealthBar)
