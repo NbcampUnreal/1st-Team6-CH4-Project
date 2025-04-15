@@ -28,6 +28,8 @@ public:
     UFUNCTION(BlueprintCallable, Category = "UI")
     void SetPlayerImageVisibility(int32 PlayerIndex, bool bIsVisible);
 
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void SetPlayerPortrait(int32 PlayerIndex, UTexture2D* NewPortrait);
 
 
     // 타이머 껐다 켰다 하는 함수

@@ -40,4 +40,7 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent, Category = "YJCharacter")
 	void PostInitComp();
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "YJCharacter")
+	void OnPostNetInit();
+
 };
