@@ -46,7 +46,7 @@ protected:
 
 
     // 현재 캐릭터의 플레이어번호 
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(BlueprintReadWrite, meta = (BindWidget), Category = "UI")
     class UImage* PlayerNumberImage;
 
 
