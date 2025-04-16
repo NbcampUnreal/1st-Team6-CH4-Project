@@ -71,6 +71,17 @@ void UPlayerUI::SetPlayerPortrait(UTexture2D* PortraitTexture)
     }
 }
 
+void UPlayerUI::SetPlayerNumber(UTexture2D* PlayerNumberTexture)
+{
+    if (PlayerNumberImage && PlayerNumberTexture)
+    {
+        FSlateBrush Brush;
+        Brush.SetResourceObject(PlayerNumberTexture);
+        Brush.ImageSize = FVector2D(100.f, 100.f); // 원하는 사이즈
+        PlayerNumberImage->SetBrush(Brush);
+    }
+}
+
 void UPlayerUI::UpdateHealth(float CurrentHealth)
 {
     if (HealthBar)
