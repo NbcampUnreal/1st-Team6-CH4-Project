@@ -28,8 +28,13 @@ public:
     UFUNCTION(BlueprintCallable, Category = "UI")
     void SetPlayerImageVisibility(int32 PlayerIndex, bool bIsVisible);
 
+    // 개별 플레이어 초상화 설정함수
     UFUNCTION(BlueprintCallable, Category = "UI")
     void SetPlayerPortrait(int32 PlayerIndex, UTexture2D* NewPortrait);
+
+    // 개별 플레이어 번호 설정함수
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void SetPlayerNumber(int32 PlayerIndex, UTexture2D* NewNumber);
 
 
     // 타이머 껐다 켰다 하는 함수
