@@ -22,6 +22,14 @@ protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
+    // 현재 생성된 아이템 추적용 변수 추가
+    UPROPERTY()
+    AItemBase* CurrentSpawnedItem;
+
+    // 아이템 제거 이벤트 핸들러
+    UFUNCTION()
+    void OnItemDestroyed(AActor* DestroyedActor);
+
     UFUNCTION()
     void SpawnItem();
 
