@@ -13,6 +13,9 @@ AItemSpawner::AItemSpawner()
     // 루트 컴포넌트 생성 (이동 가능하도록 SceneComponent 사용)
     USceneComponent* SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
     RootComponent = SceneComponent;
+
+    // 초기화
+    CurrentSpawnedItem = nullptr;
 }
 
 void AItemSpawner::BeginPlay()
@@ -49,17 +52,21 @@ void AItemSpawner::StopSpawning()
 
     GetWorld()->GetTimerManager().ClearTimer(SpawnTimerHandle);
 }
-
+// SpawnItem 함수 수정
 void AItemSpawner::SpawnItem()
 {
     if (!HasAuthority()) return;
 
-    Server_SpawnItem();
-}
+    // 현재 아이템이 아직 존재하는지 확인
+    if (CurrentSpawnedItem && IsValid(CurrentSpawnedItem))
+    {
+        // 아이템이 아직 존재하면 다시 타이머 설정 (나중에 다시 체크)
+        float NextCheckTime = 2.0f; // 2초 후에 다시 확인
+        GetWorld()->GetTimerManager().SetTimer(SpawnTimerHandle, this, &AItemSpawner::SpawnItem, NextCheckTime, false);
+        return;
+    }
 
-bool AItemSpawner::Server_SpawnItem_Validate()
-{
-    return true;
+    Server_SpawnItem();
 }
 
 void AItemSpawner::Server_SpawnItem_Implementation()
@@ -79,13 +86,29 @@ void AItemSpawner::Server_SpawnItem_Implementation()
         FVector SpawnLocation = GetSpawnLocation();
         FRotator SpawnRotation = GetActorRotation();
 
-        GetWorld()->SpawnActor<AItemBase>(ItemClass, SpawnLocation, SpawnRotation, SpawnParams);
-    }
+        // 아이템 생성 및 참조 저장
+        CurrentSpawnedItem = GetWorld()->SpawnActor<AItemBase>(ItemClass, SpawnLocation, SpawnRotation, SpawnParams);
 
-    // 다음 스폰 예약
-    float NextSpawnTime;
-    GetRandomSpawnTime(NextSpawnTime);
-    GetWorld()->GetTimerManager().SetTimer(SpawnTimerHandle, this, &AItemSpawner::SpawnItem, NextSpawnTime, false);
+        // 아이템 소멸 이벤트 구독
+        if (CurrentSpawnedItem)
+        {
+            CurrentSpawnedItem->OnDestroyed.AddDynamic(this, &AItemSpawner::OnItemDestroyed);
+        }
+    }
+}
+
+// 아이템 제거 이벤트 핸들러 추가
+void AItemSpawner::OnItemDestroyed(AActor* DestroyedActor)
+{
+    if (DestroyedActor == CurrentSpawnedItem)
+    {
+        CurrentSpawnedItem = nullptr;
+
+        // 아이템이 제거되었으므로 새 아이템 생성 일정 설정
+        float NextSpawnTime;
+        GetRandomSpawnTime(NextSpawnTime);
+        GetWorld()->GetTimerManager().SetTimer(SpawnTimerHandle, this, &AItemSpawner::SpawnItem, NextSpawnTime, false);
+    }
 }
 
 void AItemSpawner::GetRandomSpawnTime(float& OutTime)
@@ -96,4 +119,9 @@ void AItemSpawner::GetRandomSpawnTime(float& OutTime)
 FVector AItemSpawner::GetSpawnLocation() const
 {
     return GetActorLocation() + GetActorRotation().RotateVector(SpawnOffset);
+}
+
+bool AItemSpawner::Server_SpawnItem_Validate()
+{
+    return true;
 }
