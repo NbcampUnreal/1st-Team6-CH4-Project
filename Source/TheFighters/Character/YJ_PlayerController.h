@@ -16,7 +16,12 @@ class THEFIGHTERS_API AYJ_PlayerController : public APlayerController
 
 protected:
 
+	virtual void PostInitializeComponents() override;
 	virtual void PostNetInit() override;
+	
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "YJPlayerController")
+	void PostInitComp();
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "YJPlayerController")
 	void OnPostNetInit();

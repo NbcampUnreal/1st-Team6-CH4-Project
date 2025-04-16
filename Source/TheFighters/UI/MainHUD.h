@@ -24,6 +24,14 @@ public:
     UFUNCTION(BlueprintCallable, Category = "UI")
     void SetPlayerUIVisibility(int32 PlayerIndex, bool bIsVisible);
 
+    // 개별 플레이어 이미지 끄는 함수
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void SetPlayerImageVisibility(int32 PlayerIndex, bool bIsVisible);
+
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void SetPlayerPortrait(int32 PlayerIndex, UTexture2D* NewPortrait);
+
+
     // 타이머 껐다 켰다 하는 함수
     UFUNCTION(BlueprintCallable, Category = "UI")
     void SetTimerVisibility(bool bIsVisible);

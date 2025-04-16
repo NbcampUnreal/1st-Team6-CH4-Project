@@ -38,6 +38,21 @@ void UMainHUD::SetPlayerUIVisibility(int32 PlayerIndex, bool bIsVisible)
     }
 }
 
+void UMainHUD::SetPlayerImageVisibility(int32 PlayerIndex, bool bIsVisible)
+{
+
+}
+
+void UMainHUD::SetPlayerPortrait(int32 PlayerIndex, UTexture2D* NewPortrait)
+{
+    if (PlayerIndex == OwnerPlayerIndex)
+    {
+        Player->SetPlayerPortrait(NewPortrait);
+    }
+
+    OtherPlayers[PlayerIndex]->SetPlayerPortrait(NewPortrait);
+}
+
 void UMainHUD::SetTimerVisibility(bool bIsVisible)
 {
     ESlateVisibility VisibilityState = bIsVisible ? ESlateVisibility::Visible : ESlateVisibility::Hidden;
