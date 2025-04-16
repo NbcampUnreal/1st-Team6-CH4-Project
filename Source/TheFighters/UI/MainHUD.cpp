@@ -53,6 +53,19 @@ void UMainHUD::SetPlayerPortrait(int32 PlayerIndex, UTexture2D* NewPortrait)
     OtherPlayers[PlayerIndex]->SetPlayerPortrait(NewPortrait);
 }
 
+void UMainHUD::SetPlayerNumber(int32 PlayerIndex, UTexture2D* NewNumber)
+{
+
+    if (PlayerIndex == OwnerPlayerIndex)
+    {
+        // 0 번 왼쪽 상단은 플레이어 번호 나타나지 않게
+        //Player->SetPlayerNumber(NewNumber);
+        
+    }
+
+    OtherPlayers[PlayerIndex]->SetPlayerNumber(NewNumber);
+}
+
 void UMainHUD::SetTimerVisibility(bool bIsVisible)
 {
     ESlateVisibility VisibilityState = bIsVisible ? ESlateVisibility::Visible : ESlateVisibility::Hidden;

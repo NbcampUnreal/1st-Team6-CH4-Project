@@ -18,6 +18,10 @@ public:
     // 현재 캐릭터의 초상화 설정하는 함수
     UFUNCTION(BlueprintCallable, Category = "UI")
     void SetPlayerPortrait(UTexture2D* PortraitTexture);
+
+    // 현재 캐릭터의 번호 설정하는 함수
+    UFUNCTION(BlueprintCallable, Category = "UI")
+    void SetPlayerNumber(UTexture2D* PlayerNumberTexture);
     
 public:
     // 체력 업데이트 함수
@@ -36,9 +40,15 @@ public:
 protected:
     virtual void NativeConstruct() override;
 
-    // 현재 캐릭터의 초상화 or 플레이어번호 
+    // 현재 캐릭터의 초상화  
     UPROPERTY(meta = (BindWidget))
     class UImage* PlayerPortraitImage;
+
+
+    // 현재 캐릭터의 플레이어번호 
+    UPROPERTY(meta = (BindWidget))
+    class UImage* PlayerNumberImage;
+
 
     // 체력과 슈퍼미터 위젯 바인딩
     UPROPERTY(meta = (BindWidget))
