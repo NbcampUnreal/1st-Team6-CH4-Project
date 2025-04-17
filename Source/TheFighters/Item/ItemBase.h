@@ -4,6 +4,8 @@
 #include "GameFramework/Actor.h"
 #include "ItemBase.generated.h"
 
+class AItemSpawner;
+
 UCLASS(Abstract)
 class THEFIGHTERS_API AItemBase : public AActor
 {
@@ -12,12 +14,24 @@ class THEFIGHTERS_API AItemBase : public AActor
 public:
     AItemBase();
 
+    virtual void Tick(float DeltaTime) override;
+
+    // 스포너 설정 함수
+    void SetSpawner(AItemSpawner* Spawner);
+
 protected:
     virtual void BeginPlay() override;
 
-public:
-    virtual void Tick(float DeltaTime) override;
+protected:
+    UPROPERTY()
+    AItemSpawner* SpawnerOwner;
 
+    UFUNCTION()
+    void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+        UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+        bool bFromSweep, const FHitResult& SweepResult);
+
+public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components")
     class USceneComponent* RootScene;
 

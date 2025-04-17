@@ -73,6 +73,15 @@ void AItemSpawner::Server_SpawnItem_Implementation()
 {
     if (SpawnableItems.Num() == 0) return;
 
+    // 현재 아이템이 존재하는지 한번 더 확인
+    if (CurrentSpawnedItem && IsValid(CurrentSpawnedItem))
+    {
+        // 아이템이 아직 존재하면 나중에 다시 체크
+        float NextCheckTime = 2.0f;
+        GetWorld()->GetTimerManager().SetTimer(SpawnTimerHandle, this, &AItemSpawner::SpawnItem, NextCheckTime, false);
+        return;
+    }
+
     // 랜덤 아이템 클래스 선택
     int32 RandomIndex = FMath::RandRange(0, SpawnableItems.Num() - 1);
     TSubclassOf<AItemBase> ItemClass = SpawnableItems[RandomIndex];
@@ -89,10 +98,11 @@ void AItemSpawner::Server_SpawnItem_Implementation()
         // 아이템 생성 및 참조 저장
         CurrentSpawnedItem = GetWorld()->SpawnActor<AItemBase>(ItemClass, SpawnLocation, SpawnRotation, SpawnParams);
 
-        // 아이템 소멸 이벤트 구독
+        // 아이템 소멸 이벤트 구독 및 스포너 설정
         if (CurrentSpawnedItem)
         {
             CurrentSpawnedItem->OnDestroyed.AddDynamic(this, &AItemSpawner::OnItemDestroyed);
+            CurrentSpawnedItem->SetSpawner(this);
         }
     }
 }

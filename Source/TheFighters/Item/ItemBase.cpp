@@ -2,6 +2,7 @@
 #include "Components/SceneComponent.h"
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Item/ItemSpawner.h"
 
 AItemBase::AItemBase()
 {
@@ -17,6 +18,7 @@ AItemBase::AItemBase()
     CollisionComponent->SetupAttachment(RootScene);
     CollisionComponent->InitSphereRadius(30.0f);
     CollisionComponent->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
+    CollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &AItemBase::OnOverlapBegin);
 
     // Mesh
     MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
@@ -24,7 +26,10 @@ AItemBase::AItemBase()
     MeshComponent->SetRelativeLocation(FVector::ZeroVector);
     MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     MeshComponent->SetWorldScale3D(FVector(0.5f));
-    MeshComponent->SetMaterial(0, nullptr); // 머티리얼 제거
+    MeshComponent->SetMaterial(0, nullptr);
+
+    // 초기화
+    SpawnerOwner = nullptr;
 }
 
 void AItemBase::BeginPlay()
@@ -40,5 +45,18 @@ void AItemBase::Tick(float DeltaTime)
     FRotator NewRotation = GetActorRotation();
     NewRotation.Yaw += 60.0f * DeltaTime;
     SetActorRotation(NewRotation);
+}
+
+void AItemBase::SetSpawner(AItemSpawner* Spawner)
+{
+    SpawnerOwner = Spawner;
+}
+
+void AItemBase::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+    UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+    bool bFromSweep, const FHitResult& SweepResult)
+{
+    // 블루프린트에서 처리할 예정이므로 여기서는 구현하지 않음
+    // 나중에 필요하면 여기에 로직 추가
 }
 
